@@ -1,0 +1,146 @@
+{% extends 'layout.html' %} {% load static %}
+{% block head %}
+  <div class="header-img-box">
+  <img src="{% static 'image/image.png' %}" alt="" class="box-img" width="1232" />
+</div>
+{% endblock %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/ajjax.js' %}"></script>
+<div class="main-box">
+  <div class="menu-nav">
+    <h3 class="dsc-title">Меню:</h3>
+    <ul class="menu-ul">
+      <li class="menu-li">
+        <a href="#" data-category="all" class="menu-a">Все товары</a>
+      </li>
+      {% for category in categories %}
+      <li class="menu-li">
+        <a href="#" data-category="{{ category.name }}" class="menu-a"
+          >{{ category.name }}</a
+        >
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <script src="{% static 'js/sorted.js' %}"></script>
+  <div class="main-details">
+    <div class="box-title-cat">
+      {% if products %}
+      <h1 class="title-category">
+        {% if selected_category %} {{ selected_category.name }} {% else %} Все
+        товары {% endif %}
+      </h1>
+      {% else %}
+      <h1 class="title-category">Нет товаров в этой категории</h1>
+      {% endif %}
+    </div>
+    {% for product in products %}
+    <div class="detail-item" data-category="{{ product.category.name }}" style="display: flex" >
+      <div class="detail-item-box">
+        <h3 class="title-item">{{ product.name }}</h3>
+        <p class="desc-item">{{ product.description }}</p>
+        <p class="price-text">{{ product.price }} KGS</p>
+      </div>
+      {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+      {% else %}
+      <img src="/path/to/default-image.png" alt="Default Image" />
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  <div class="box-info">
+    <h3 class="dsc-title">Информация о заведении</h3>
+    <ul class="info-ul">
+      <li class="info-li">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 3C9.30903 3 6.9213 4.1319 5.29102 6H4C1.8 6 0 7.8 0 10V14C0 16.2 1.8 18 4 18H5.29102C6.9213 19.8681 9.30903 21 12 21C14.691 21 17.0787 19.8681 18.709 18H20C22.2 18 24 16.2 24 14V10C24 7.8 22.2 6 20 6H18.709C17.0787 4.1319 14.691 3 12 3ZM14 8H20C21.1 8 22 8.9 22 10V14C22 15.1 21.1 16 20 16H10C11.1 16 12 15.1 12 14V10C12 8.9 12.9 8 14 8ZM9.59961 8.80078C10.1996 8.80078 10.1992 9.30039 10.1992 9.40039C10.1992 10.0004 9.69961 10 9.59961 10C9.09961 10 9 9.50039 9 9.40039C9 8.80039 9.49961 8.80078 9.59961 8.80078ZM18.5996 8.80078C18.4996 8.80078 18 8.80039 18 9.40039C18 9.50039 18.0996 10 18.5996 10C18.6996 10 19.1992 10.0004 19.1992 9.40039C19.1992 9.30039 19.1996 8.80078 18.5996 8.80078ZM2 9H3.19922L3.80078 12.8008L4.5 9H5.5L6.19922 12.8008L6.80078 9H8L6.90039 15H5.69922L5 11.5L4.30078 15H3.09961L2 9ZM14 9V15H15.1992V12.5996H17.0996V11.5H15.1992V10H17.3008V9H14ZM18 10.5V15H19.1992V10.5H18ZM9.09961 10.5996H10.3008V15H9.09961V10.5996Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        <div class="div-info-box">
+          <p class="title-info-li">Wifi:</p>
+          <p class="text-info-li">87654321</p>
+        </div>
+      </li>
+      <li class="info-li">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2C6.489 2 2 6.489 2 12C2 17.511 6.489 22 12 22C17.511 22 22 17.511 22 12C22 6.489 17.511 2 12 2ZM12 4C16.4301 4 20 7.56988 20 12C20 16.4301 16.4301 20 12 20C7.56988 20 4 16.4301 4 12C4 7.56988 7.56988 4 12 4ZM11 6V12.4141L15.293 16.707L16.707 15.293L13 11.5859V6H11Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        <div class="div-info-box">
+          <p class="title-info-li">Рабочее время:</p>
+          <p class="text-info-li">07:30 - 02:00</p>
+        </div>
+      </li>
+      <li class="info-li">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 1C8.686 1 6 3.686 6 7C6 11.286 12 18 12 18C12 18 18 11.286 18 7C18 3.686 15.314 1 12 1ZM12 3C14.206 3 16 4.794 16 7C16 9.01 13.919 12.3604 11.998 14.8594C10.077 12.3644 8 9.016 8 7C8 4.794 9.794 3 12 3ZM12 5C11.4696 5 10.9609 5.21071 10.5858 5.58579C10.2107 5.96086 10 6.46957 10 7C10 7.53043 10.2107 8.03914 10.5858 8.41421C10.9609 8.78929 11.4696 9 12 9C12.5304 9 13.0391 8.78929 13.4142 8.41421C13.7893 8.03914 14 7.53043 14 7C14 6.46957 13.7893 5.96086 13.4142 5.58579C13.0391 5.21071 12.5304 5 12 5ZM7.48047 15.4355C4.23147 16.0955 2 17.442 2 19C2 21.209 6.477 23 12 23C17.523 23 22 21.209 22 19C22 17.442 19.7685 16.0965 16.5195 15.4355C16.0675 16.0965 15.6248 16.7024 15.2168 17.2324C17.9488 17.6464 19.5662 18.512 19.9492 18.998C19.4342 19.652 16.696 20.998 12.002 20.998L12 21.002L11.998 21C7.30405 21 4.56678 19.655 4.05078 19C4.43378 18.513 6.0502 17.6454 8.7832 17.2324C8.3752 16.7014 7.93247 16.0955 7.48047 15.4355Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        <div class="div-info-box">
+          <p class="title-info-li">Адрес:</p>
+          <p class="text-info-li">г.Бишкек, ул.Горького 19</p>
+        </div>
+      </li>
+      <li class="info-li">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M14.0879 2C13.9449 2 13.7993 2.01864 13.6543 2.05664L5.5957 4.2168C4.7057 4.4558 4.17897 5.36977 4.41797 6.25977L8.30273 20.7637C8.50273 21.5087 9.17611 22 9.91211 22C10.0551 22 10.2007 21.9814 10.3457 21.9434L18.4023 19.7832C19.2923 19.5452 19.82 18.6302 19.582 17.7402L15.6973 3.23633C15.4973 2.49133 14.8239 2 14.0879 2ZM13.8516 4.07422L14.3223 5.83008L6.91406 7.85547L6.43359 6.0625L13.8516 4.07422ZM20.75 5.33789L18.8184 5.85547L20.9766 13.9141L22.9082 13.3965L20.75 5.33789ZM14.8398 7.76367L16.5703 14.2227L9.16211 16.248L7.43164 9.78711L14.8398 7.76367ZM3.02344 10.0879L1.0918 10.6055L3.25 18.6621L5.18164 18.1445L3.02344 10.0879ZM17.0879 16.1562L17.5664 17.9375L10.1484 19.9258L9.67969 18.1797L17.0879 16.1562Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+        <div class="div-info-box">
+          <p class="title-info-li">Телефон:</p>
+          <p class="text-info-li">0500222777</p>
+        </div>
+      </li>
+    </ul>
+    <button class="btn-info">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M4.00195 3C2.90889 3 2.00195 3.90694 2.00195 5V17C2.00195 18.0931 2.90889 19 4.00195 19H18.002L22.002 23L21.9902 4.99805C21.9902 3.90498 21.0821 3 19.9902 3H4.00195ZM4.00195 5H19.9902L19.998 18.168L18.8301 17H4.00195V5ZM7 8V10H17V8H7ZM7 12V14H14V12H7Z"
+          fill="currentColor"
+        ></path>
+      </svg>
+      Отправить отзыв
+    </button>
+  </div>
+</div>
+{% endblock %}

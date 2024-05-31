@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="feedback">
+    <h1 class="title-feedback">Помогите нам стать лучше!</h1>
+    <p class="text-feedback">
+        Если у вас есть замечания или предложения по блюдам и обслуживанию,
+        пожалуйста, оставьте свой отзыв.
+    </p>
+    <hr class="feed" />
+    <form action="{% url 'send_feedback_email' %}" method="post">
+        {% csrf_token %}
+        <span class="line"></span>
+        <input
+            type="text"
+            maxlength="255"
+            class="message input"
+            name="message"
+            placeholder="Введите комментарий"
+        />
+        <hr class="feed2">
+        <span class="line"></span>
+        <label for="" class="dsc-title">Пожалуйста, оставьте свои контакты</label>
+        <input type="tel" name="phone" placeholder="Телефон" class="input" />
+        <input type="email" name="email" placeholder="Эл. адрес" class="input" />
+        <input
+            type="text"
+            maxlength="20"
+            name="name"
+            placeholder="Имя (необязательно)"
+            class="input"
+            required
+        />
+        <hr class="feed3">
+        <button type="submit" class="feedback-btn">Оставить отзыв</button>
+        <span class="line"></span>
+    </form>
+</div>
+{% endblock %}
